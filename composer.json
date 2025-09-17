@@ -1,0 +1,56 @@
+{
+  "name": "bnussbau/trmnl-render-php",
+  "description": "This is my package trmnl-render-php",
+  "keywords": [
+    "bnussbau",
+    "trmnl-render-php"
+  ],
+  "homepage": "https://github.com/bnussbau/trmnl-render-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "bnussbau",
+      "email": "bnussbau@users.noreply.github.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-imagick": "*",
+    "spatie/browsershot": "^5.0",
+    "league/pipeline": "^1.0"
+  },
+  "require-dev": {
+    "pestphp/pest": "^4.0",
+    "laravel/pint": "^1.0",
+    "phpstan/phpstan": "^1.10",
+    "rector/rector": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Bnussbau\\TrmnlPipeline\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Bnussbau\\TrmnlPipeline\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/pest",
+    "test-coverage": "vendor/bin/pest --coverage",
+    "format": "vendor/bin/pint",
+    "analyse": "vendor/bin/phpstan analyse",
+    "analyze": "vendor/bin/phpstan analyse",
+    "rector": "vendor/bin/rector process"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
