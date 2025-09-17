@@ -92,6 +92,35 @@ $image = new TrmnlPipeline()
 echo "Generated image: $image";
 ```
 
+### Browser Rendering on AWS Lambda
+
+You can use different Browsershot implementations (like BrowsershotLambda) by passing an instance to the BrowserStage.
+See installation instructions and requirments for [stefanzweifel/sidecar-browsershot](https://github.com/stefanzweifel/sidecar-browsershot).
+
+```php
+use Bnussbau\TrmnlPipeline\Model;
+use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Wnx\SidecarBrowsershot\BrowsershotLambda;
+
+$html = file_get_contents('./tests/assets/framework2_og.html');
+
+// Create your custom Browsershot instance (e.g., BrowsershotLambda)
+$browsershotLambda = new BrowsershotLambda();
+
+$image = new TrmnlPipeline()
+    ->model(Model::OG)
+    ->pipe(new BrowserStage($browsershotLambda)
+        ->html($html))
+    ->pipe(new ImageStage())
+    ->process();
+
+echo "Generated image: $image";
+```
+
+This allows you to use BrowsershotLambda or any other Browsershot implementation that extends `Spatie\Browsershot\Browsershot`.
+
 ## API Reference
 
 ### Pipeline
@@ -116,6 +145,7 @@ $browserStage
     ->html('<html><body>Content</body></html>')
     ->width(800)
     ->height(480)
+    ->useDefaultDimensions() // force 800x480 e.g. in combination with Model to upscale image
     ->setBrowsershotOption('addStyleTag', json_encode(['content' => 'body{ color: red; }']));
 
 $result = $browserStage(null);
