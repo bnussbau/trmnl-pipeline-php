@@ -4,12 +4,16 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/bnussbau/trmnl-pipeline-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bnussbau/trmnl-pipeline-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 
+TRMNL Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content into optimized images for a wide range of e-ink devices. The image processing pipeline includes grayscale conversion, color quantization, and device-specific optimizations.
+
+<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/e84fc752-552e-4cb9-a1c0-aa2596176db7" />
+
+
 ## Features
 
 - **Browser Rendering**: HTML to image conversion using Spatie Browsershot
 - **Image Processing**: Advanced image manipulation using ImageMagick
-- **TRMNL Models API**: Automatic support for >=12 different e-ink device models
-- **Pipeline Pattern**: Uses the League Pipeline package for clean, composable image processing
+- **TRMNL Models API**: Automatic support for >=12 different e-ink device models.
 
 ## Requirements
 
