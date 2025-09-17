@@ -1,11 +1,13 @@
 {
-  "name": "bnussbau/trmnl-render-php",
-  "description": "This is my package trmnl-render-php",
+  "name": "bnussbau/trmnl-pipeline-php",
+  "description": "Convert HTML content into optimized images for a range of e-ink devices.",
   "keywords": [
     "bnussbau",
-    "trmnl-render-php"
+    "trmnl-pipeline-php",
+    "trmnl",
+    "e-ink"
   ],
-  "homepage": "https://github.com/bnussbau/trmnl-render-php",
+  "homepage": "https://github.com/bnussbau/trmnl-pipeline-php",
   "license": "MIT",
   "authors": [
     {
