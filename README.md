@@ -84,9 +84,9 @@ $image = new TrmnlPipeline()
         ->format('png')
         ->width(800)
         ->height(600)
+        ->rotation(90)
         ->colors(256)
-        ->bitDepth(8)
-        ->rotation(90))
+        ->bitDepth(8))
     ->process();
 
 echo "Generated image: $image";
@@ -131,9 +131,11 @@ $imageStage
     ->format('png')
     ->width(800)
     ->height(480)
+    ->offsetX(0)
+    ->offsetY(0)
+    ->rotation(0)
     ->colors(2)
     ->bitDepth(1)
-    ->rotation(0)
     ->outputPath('/path/to/output.png');
 
 $result = $imageStage('/path/to/input.png');
