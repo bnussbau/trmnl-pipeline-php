@@ -1,6 +1,7 @@
 # TRMNL Pipeline PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
+[![License](https://img.shields.io/badge/License%20-MIT-blue?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 [![Tests](https://img.shields.io/github/actions/workflow/status/bnussbau/trmnl-pipeline-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bnussbau/trmnl-pipeline-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 

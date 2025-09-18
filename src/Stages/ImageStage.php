@@ -422,11 +422,12 @@ class ImageStage implements StageInterface
      */
     public function quantize(Imagick $imagick): void
     {
+        $imagick->setOption('dither', 'FloydSteinberg');
         $imagick->quantizeImage(
             $this->colors ?? self::DEFAULT_COLORS,
             Imagick::COLORSPACE_GRAY,
             0,
-            false,
+            true,
             false
         );
     }
