@@ -7,6 +7,7 @@ namespace Bnussbau\TrmnlPipeline\Stages;
 use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
 use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
+use Bnussbau\TrmnlPipeline\TrmnlPipeline;
 use Spatie\Browsershot\Browsershot;
 
 /**
@@ -125,6 +126,10 @@ class BrowserStage implements StageInterface
             throw new ProcessingException('No HTML content provided for browser rendering. Use html() method to set HTML content.');
         }
 
+        if (TrmnlPipeline::isFake()) {
+            return $this->createMockImage();
+        }
+
         try {
             // Create temporary file for output
             $tempFile = tempnam(sys_get_temp_dir(), 'browsershot_').'.png';
@@ -163,5 +168,29 @@ class BrowserStage implements StageInterface
                 $e
             );
         }
+    }
+
+    /**
+     * Create a mock image file for testing
+     */
+    private function createMockImage(): string
+    {
+        $tempFile = tempnam(sys_get_temp_dir(), 'browsershot_fake_').'.png';
+
+        $image = imagecreate(800, 480);
+        if ($image === false) {
+            throw new ProcessingException('Failed to create mock image');
+        }
+
+        $white = imagecolorallocate($image, 255, 255, 255);
+        if ($white === false) {
+            throw new ProcessingException('Failed to allocate color for mock image');
+        }
+
+        imagefill($image, 0, 0, $white);
+        imagepng($image, $tempFile);
+        imagedestroy($image);
+
+        return $tempFile;
     }
 }

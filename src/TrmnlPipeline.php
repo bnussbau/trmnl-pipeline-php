@@ -16,6 +16,8 @@ class TrmnlPipeline
 
     private Pipeline $pipeline;
 
+    private static bool $isFake = false;
+
     public function __construct()
     {
         $this->pipeline = new Pipeline;
@@ -72,5 +74,29 @@ class TrmnlPipeline
                 $e
             );
         }
+    }
+
+    /**
+     * Enable fake mode for testing - prevents actual Browsershot and Imagick operations
+     */
+    public static function fake(): void
+    {
+        self::$isFake = true;
+    }
+
+    /**
+     * Disable fake mode
+     */
+    public static function restore(): void
+    {
+        self::$isFake = false;
+    }
+
+    /**
+     * Check if fake mode is enabled
+     */
+    public static function isFake(): bool
+    {
+        return self::$isFake;
     }
 }

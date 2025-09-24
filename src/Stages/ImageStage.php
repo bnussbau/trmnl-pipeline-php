@@ -7,6 +7,7 @@ namespace Bnussbau\TrmnlPipeline\Stages;
 use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
 use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
+use Bnussbau\TrmnlPipeline\TrmnlPipeline;
 use Imagick;
 use ImagickException;
 use ImagickPixel;
@@ -200,6 +201,10 @@ class ImageStage implements StageInterface
 
         if (! file_exists($imagePath)) {
             throw new ProcessingException('Invalid or missing image file: '.$imagePath);
+        }
+
+        if (TrmnlPipeline::isFake()) {
+            return $this->createMockProcessedImage($imagePath);
         }
 
         try {
@@ -430,5 +435,41 @@ class ImageStage implements StageInterface
             true,
             false
         );
+    }
+
+    /**
+     * Create a mock processed image file for testing
+     */
+    private function createMockProcessedImage(string $inputPath): string
+    {
+        $outputPath = $this->outputPath ?? $this->generateOutputPath($inputPath);
+
+        // Create a simple image file based on the target format
+        $format = $this->format ?? self::DEFAULT_FORMAT;
+        $width = $this->width ?? self::DEFAULT_WIDTH;
+        $height = $this->height ?? self::DEFAULT_HEIGHT;
+
+        $image = imagecreate($width, $height);
+        if ($image === false) {
+            throw new ProcessingException('Failed to create mock processed image');
+        }
+
+        $white = imagecolorallocate($image, 255, 255, 255);
+        if ($white === false) {
+            throw new ProcessingException('Failed to allocate color for mock processed image');
+        }
+
+        imagefill($image, 0, 0, $white);
+
+        // Save in the appropriate format
+        match ($format) {
+            'png' => imagepng($image, $outputPath),
+            'bmp' => imagebmp($image, $outputPath),
+            default => imagepng($image, $outputPath),
+        };
+
+        imagedestroy($image);
+
+        return $outputPath;
     }
 }
