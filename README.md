@@ -122,6 +122,33 @@ echo "Generated image: $image";
 
 This allows you to use BrowsershotLambda or any other Browsershot implementation that extends `Spatie\Browsershot\Browsershot`.
 
+### Testing with Fake Mode
+
+You can use the `fake()` method to prevent actual Browsershot and Imagick operations:
+
+```php
+use Bnussbau\TrmnlPipeline\Model;
+use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+
+// Enable fake mode for testing
+TrmnlPipeline::fake();
+
+$html = '<html><body>Test Content</body></html>';
+
+$result = (new TrmnlPipeline())
+    ->model(Model::OG)
+    ->pipe(new BrowserStage()->html($html))
+    ->pipe(new ImageStage())
+    ->process();
+
+echo "Mock image generated: $result";
+
+// Disable fake mode when done
+TrmnlPipeline::restore();
+```
+
 ## API Reference
 
 ### Pipeline
