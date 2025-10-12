@@ -14,7 +14,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "trmnl"
+            "kind": "trmnl",
+            "palette_ids": [
+                "bw"
+            ]
         },
         {
             "name": "og_bmp",
@@ -30,7 +33,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "trmnl"
+            "kind": "trmnl",
+            "palette_ids": [
+                "bw"
+            ]
         },
         {
             "name": "amazon_kindle_2024",
@@ -40,13 +46,16 @@
             "height": 840,
             "colors": 256,
             "bit_depth": 8,
-            "scale_factor": 2.414,
+            "scale_factor": 1.75,
             "rotation": 90,
             "mime_type": "image/png",
             "offset_x": 75,
             "offset_y": 25,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "kindle"
+            "kind": "kindle",
+            "palette_ids": [
+                "gray-256"
+            ]
         },
         {
             "name": "amazon_kindle_paperwhite_6th_gen",
@@ -62,7 +71,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "kindle"
+            "kind": "kindle",
+            "palette_ids": [
+                "gray-256"
+            ]
         },
         {
             "name": "amazon_kindle_paperwhite_7th_gen",
@@ -78,7 +90,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "kindle"
+            "kind": "kindle",
+            "palette_ids": [
+                "gray-256"
+            ]
         },
         {
             "name": "inkplate_10",
@@ -94,7 +109,11 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "gray-4",
+                "bw"
+            ]
         },
         {
             "name": "amazon_kindle_7",
@@ -110,7 +129,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "kindle"
+            "kind": "kindle",
+            "palette_ids": [
+                "gray-256"
+            ]
         },
         {
             "name": "inky_impression_7_3",
@@ -126,7 +148,11 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "color-7a",
+                "bw"
+            ]
         },
         {
             "name": "kobo_libra_2",
@@ -142,7 +168,12 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "gray-16",
+                "gray-4",
+                "bw"
+            ]
         },
         {
             "name": "amazon_kindle_oasis_2",
@@ -158,7 +189,10 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "gray-256"
+            ]
         },
         {
             "name": "og_plus",
@@ -174,7 +208,11 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "trmnl"
+            "kind": "trmnl",
+            "palette_ids": [
+                "gray-4",
+                "bw"
+            ]
         },
         {
             "name": "kobo_aura_one",
@@ -190,7 +228,12 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "gray-16",
+                "gray-4",
+                "bw"
+            ]
         },
         {
             "name": "kobo_aura_hd",
@@ -206,7 +249,12 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "gray-16",
+                "gray-4",
+                "bw"
+            ]
         },
         {
             "name": "inky_impression_13_3",
@@ -222,7 +270,32 @@
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod"
+            "kind": "byod",
+            "palette_ids": [
+                "color-6a",
+                "bw"
+            ]
+        },
+        {
+            "name": "m5_paper_s3",
+            "label": "M5PaperS3",
+            "description": "M5PaperS3",
+            "width": 960,
+            "height": 540,
+            "colors": 16,
+            "bit_depth": 4,
+            "scale_factor": 1.0,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "byod",
+            "palette_ids": [
+                "gray-16",
+                "gray-4",
+                "bw"
+            ]
         }
     ]
 }
