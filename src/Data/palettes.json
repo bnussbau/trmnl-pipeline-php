@@ -1,0 +1,61 @@
+{
+    "data": [
+        {
+            "id": "bw",
+            "name": "Black \u0026 White",
+            "grays": 2,
+            "colors": null,
+            "framework_class": "screen--1bit"
+        },
+        {
+            "id": "gray-4",
+            "name": "4 Grays",
+            "grays": 4,
+            "colors": null,
+            "framework_class": "screen--2bit"
+        },
+        {
+            "id": "gray-16",
+            "name": "16 Grays",
+            "grays": 16,
+            "colors": null,
+            "framework_class": "screen--4bit"
+        },
+        {
+            "id": "gray-256",
+            "name": "256 Grays",
+            "grays": 256,
+            "colors": null,
+            "framework_class": "screen--4bit"
+        },
+        {
+            "id": "color-6a",
+            "name": "Color (6 colors)",
+            "grays": 2,
+            "colors": [
+                "#FF0000",
+                "#00FF00",
+                "#0000FF",
+                "#FFFF00",
+                "#000000",
+                "#FFFFFF"
+            ],
+            "framework_class": ""
+        },
+        {
+            "id": "color-7a",
+            "name": "Color (7 colors)",
+            "grays": 2,
+            "colors": [
+                "#000000",
+                "#FFFFFF",
+                "#FF0000",
+                "#00FF00",
+                "#0000FF",
+                "#FFFF00",
+                "#FFA500"
+            ],
+            "framework_class": ""
+        }
+    ]
+}
