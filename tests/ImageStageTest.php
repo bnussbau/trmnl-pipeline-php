@@ -361,4 +361,99 @@ describe('ImageStage', function (): void {
             unlink($corruptedImagePath);
         }
     });
+
+    it('can set custom colormap', function (): void {
+        $stage = new ImageStage;
+        $customColormap = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'];
+
+        $result = $stage->colormap($customColormap);
+
+        expect($result)->toBe($stage);
+    });
+
+    it('applies default 2-bit grayscale colormap for PNG with 2-bit depth', function (): void {
+        $stage = new ImageStage;
+        $stage->format('png')->bitDepth(2);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
+
+    it('applies custom colormap for PNG with 2-bit depth', function (): void {
+        $stage = new ImageStage;
+        $customColormap = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'];
+        $stage->format('png')->bitDepth(2)->colormap($customColormap);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
+
+    it('does not apply colormap for non-PNG format', function (): void {
+        $stage = new ImageStage;
+        $stage->format('bmp')->bitDepth(2);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
+
+    it('does not apply colormap for PNG with non-2-bit depth', function (): void {
+        $stage = new ImageStage;
+        $stage->format('png')->bitDepth(1);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
+
+    it('applies colormap with colors from palettes.json format', function (): void {
+        $stage = new ImageStage;
+        // Colors from palettes.json color-7a palette
+        $paletteColors = [
+            '#000000',
+            '#FFFFFF',
+            '#FF0000',
+            '#00FF00',
+            '#0000FF',
+            '#FFFF00',
+            '#FFA500',
+        ];
+        $stage->format('png')->bitDepth(2)->colormap($paletteColors);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
 });
