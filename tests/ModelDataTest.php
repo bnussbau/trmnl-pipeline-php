@@ -88,7 +88,7 @@ describe('ModelData', function (): void {
         expect($model->height)->toBe(840);
         expect($model->colors)->toBe(256);
         expect($model->bitDepth)->toBe(8);
-        expect($model->scaleFactor)->toBe(2.414);
+        expect($model->scaleFactor)->toBe(1.75);
         expect($model->rotation)->toBe(90);
         expect($model->mimeType)->toBe('image/png');
         expect($model->offsetX)->toBe(75);

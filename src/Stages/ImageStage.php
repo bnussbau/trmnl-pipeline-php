@@ -9,8 +9,11 @@ use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
 use Bnussbau\TrmnlPipeline\TrmnlPipeline;
 use Imagick;
+use ImagickDraw;
+use ImagickDrawException;
 use ImagickException;
 use ImagickPixel;
+use ImagickPixelException;
 
 /**
  * Image stage for format conversion
@@ -53,6 +56,11 @@ class ImageStage implements StageInterface
     private ?int $offsetY = null;
 
     private ?string $outputPath = null;
+
+    /**
+     * @var array<string>|null
+     */
+    private ?array $colormap = null;
 
     /**
      * Set output format
@@ -148,6 +156,18 @@ class ImageStage implements StageInterface
     public function outputPath(string $path): self
     {
         $this->outputPath = $path;
+
+        return $this;
+    }
+
+    /**
+     * Set custom colormap for image processing
+     *
+     * @param  array<string>  $colors  Array of hex color codes
+     */
+    public function colormap(array $colors): self
+    {
+        $this->colormap = $colors;
 
         return $this;
     }
@@ -256,7 +276,10 @@ class ImageStage implements StageInterface
         // Rotate image if rotation is specified
         $this->rotate($imagick);
 
-        $this->transformColorSpace($imagick);
+        // $this->transformColorSpace($imagick);
+
+        // Apply colormap if needed
+        $this->applyColormap($imagick);
 
         // Quantize colors if specified
         $this->quantize($imagick);
@@ -435,6 +458,71 @@ class ImageStage implements StageInterface
             true,
             false
         );
+    }
+
+    /**
+     * Apply colormap to the image
+     *
+     * @throws ImagickException
+     */
+    public function applyColormap(Imagick $imagick): void
+    {
+        $format = $this->format ?? self::DEFAULT_FORMAT;
+        $bitDepth = $this->bitDepth ?? self::DEFAULT_BIT_DEPTH;
+
+        // Only apply colormap for PNG format with 2-bit depth
+        // TODO: support other bit depths
+        if ($format !== 'png' || $bitDepth !== 2) {
+            return;
+        }
+
+        // Use custom colormap if provided, otherwise use default 2-bit grayscale
+        $colors = $this->colormap ?? $this->getDefault2BitColormap();
+
+        // Apply colormap using native Imagick functions
+        $this->setImageColormap($imagick, $colors);
+    }
+
+    /**
+     * Get default 2-bit grayscale colormap
+     *
+     * @return array<string>
+     */
+    private function getDefault2BitColormap(): array
+    {
+        return [
+            '#000000', // Black
+            '#555555', // Dark gray
+            '#aaaaaa', // Light gray
+            '#ffffff', // White
+        ];
+    }
+
+    /**
+     * Set colormap on image using native Imagick functions
+     *
+     * @param  array<string>  $colors  Array of hex color codes
+     *
+     * @throws ImagickException
+     * @throws ImagickPixelException
+     * @throws ImagickDrawException
+     */
+    private function setImageColormap(Imagick $imagick, array $colors): void
+    {
+        $paletteImage = new Imagick;
+        $paletteImage->newImage(count($colors), 1, 'white');
+        $paletteImage->setImageFormat('png');
+
+        $counter = count($colors);
+        for ($i = 0; $i < $counter; $i++) {
+            $draw = new ImagickDraw;
+            $draw->setFillColor(new ImagickPixel($colors[$i]));
+            $draw->point($i, 0);
+            $paletteImage->drawImage($draw);
+        }
+        $paletteImage->setImageType(Imagick::IMGTYPE_PALETTE);
+
+        $imagick->remapImage($paletteImage, Imagick::DITHERMETHOD_FLOYDSTEINBERG);
     }
 
     /**
