@@ -26,6 +26,8 @@ readonly class ModelData
         public int $offsetY,
         public string $publishedAt,
         public string $kind,
+        /** @var array<string> */
+        public array $paletteIds,
     ) {}
 
     /**
@@ -82,6 +84,7 @@ readonly class ModelData
                 offsetY: (int) ($modelData['offset_y'] ?? 0),
                 publishedAt: $modelData['published_at'] ?? '',
                 kind: $modelData['kind'] ?? '',
+                paletteIds: $modelData['palette_ids'] ?? [],
             );
         }
 

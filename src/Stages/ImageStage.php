@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bnussbau\TrmnlPipeline\Stages;
 
+use Bnussbau\TrmnlPipeline\Data\PaletteData;
 use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
 use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
@@ -61,6 +62,11 @@ class ImageStage implements StageInterface
      * @var array<string>|null
      */
     private ?array $colormap = null;
+
+    /**
+     * Palette ID if colormap was set from a palette
+     */
+    private ?string $paletteId = null;
 
     /**
      * Control global dithering behavior for this stage
@@ -173,6 +179,7 @@ class ImageStage implements StageInterface
     public function colormap(array $colors): self
     {
         $this->colormap = $colors;
+        $this->paletteId = null; // Clear palette ID when manually setting colormap
 
         return $this;
     }
@@ -233,7 +240,26 @@ class ImageStage implements StageInterface
             $this->format = $this->getFormatFromMimeType($data->mimeType);
         }
 
+        // Configure colormap from model's palette IDs
+        if ($this->colormap === null && $data->paletteIds !== []) {
+            $this->configureColormapFromPalette($data->paletteIds[0]);
+        }
+
         return $this;
+    }
+
+    /**
+     * Configure colormap from palette ID
+     */
+    private function configureColormapFromPalette(string $paletteId): void
+    {
+        $palette = PaletteData::getById($paletteId);
+
+        // Only set colormap if palette exists and has colors array
+        if ($palette !== null && $palette->colors !== null) {
+            $this->colormap = $palette->colors;
+            $this->paletteId = $paletteId; // Store palette ID for color detection
+        }
     }
 
     /**
@@ -475,16 +501,51 @@ class ImageStage implements StageInterface
     }
 
     /**
+     * Check if colormap represents a color palette (has colors array, not just grays)
+     *
+     * @return bool True if color mode is enabled, false if grayscale-only
+     */
+    private function isColorPalette(): bool
+    {
+        // If palette ID is set, check the palette data directly
+        if ($this->paletteId !== null) {
+            $palette = PaletteData::getById($this->paletteId);
+            // If palette has colors array (not null), it's a color palette
+            if ($palette !== null) {
+                return $palette->colors !== null;
+            }
+        }
+
+        // Use colors integer property - if > 0 and colormap is set, there are colors
+        if ($this->colors !== null && $this->colors > 0 && $this->colormap !== null) {
+            return true;
+        }
+
+        // Default to false (grayscale)
+        return false;
+    }
+
+    /**
      * @throws ImagickException
      */
     public function quantize(Imagick $imagick): void
     {
         $imagick->setOption('dither', ($this->dither ?? true) ? 'FloydSteinberg' : 'None');
+
+        // Use RGB colorspace for color palettes, GRAY for grayscale-only
+        $colorspace = $this->isColorPalette() ? Imagick::COLORSPACE_RGB : Imagick::COLORSPACE_GRAY;
+
+        // If colormap is set (from color palette), use the number of colors in the colormap
+        // Otherwise use the colors property from model or default
+        $colorCount = $this->colormap !== null && ! empty($this->colormap)
+            ? count($this->colormap)
+            : ($this->colors ?? self::DEFAULT_COLORS);
+
         $imagick->quantizeImage(
-            $this->colors ?? self::DEFAULT_COLORS,
-            Imagick::COLORSPACE_GRAY,
+            $colorCount,
+            $colorspace,
             0,
-            (bool) ($this->dither ?? true),
+            $this->dither ?? true,
             false
         );
     }
@@ -499,17 +560,23 @@ class ImageStage implements StageInterface
         $format = $this->format ?? self::DEFAULT_FORMAT;
         $bitDepth = $this->bitDepth ?? self::DEFAULT_BIT_DEPTH;
 
-        // Only apply colormap for PNG format with <= 2-bit depth
-        // TODO: support other bit depths
+        // If colormap is explicitly set (from color palette), apply it regardless of bit depth
+        if ($this->colormap !== null) {
+            // Apply colormap using native Imagick functions
+            $this->setImageColormap($imagick, $this->colormap);
+
+            return;
+        }
+
+        // For default grayscale cases, only apply colormap for PNG format with <= 2-bit depth
         if ($format !== 'png' || $bitDepth > 2) {
             return;
         }
 
-        // Determine colors: prefer explicit colormap, otherwise choose by bit depth
-        $colors = $this->colormap
-            ?? ($bitDepth == 2
-                ? $this->getDefault2BitColormap()
-                : ['#000000', '#ffffff']);
+        // Determine colors: choose by bit depth
+        $colors = $bitDepth == 2
+            ? $this->getDefault2BitColormap()
+            : ['#000000', '#ffffff'];
 
         // Apply colormap using native Imagick functions
         $this->setImageColormap($imagick, $colors);

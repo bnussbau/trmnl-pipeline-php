@@ -214,6 +214,56 @@ use Bnussbau\TrmnlPipeline\Stages\ImageStage;
     ->bitDepth(1);
 ```
 
+#### Color Support
+
+The pipeline supports color images via palettes defined in `palettes.json`. Models can specify one or more palette IDs, and the first palette with a `colors` array will be automatically applied. Color palettes use RGB colorspace for quantization and support dithering.
+
+**Example 1: Using Model Preset with Color Palette**
+
+```php
+use Bnussbau\TrmnlPipeline\Model;
+use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+
+$html = file_get_contents('./tests/assets/color_6a_test.html');
+
+// Inky Impression 13.3 model has color-6a palette (6 colors: red, green, blue, yellow, black, white)
+$image = new TrmnlPipeline()
+    ->model(Model::INKY_IMPRESSION_13_3)
+    ->pipe(new BrowserStage()
+        ->html($html))
+    ->pipe(new ImageStage())
+    ->process();
+
+echo "Generated color image: $image";
+```
+
+**Example 2: Defining Color Palette as Array**
+
+```php
+use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+
+// Define custom color palette (6 colors)
+$colorPalette = [
+    '#FF0000', // Red
+    '#00FF00', // Green
+    '#0000FF', // Blue
+    '#FFFF00', // Yellow
+    '#000000', // Black
+    '#FFFFFF', // White
+];
+
+$imageStage = new ImageStage();
+$imageStage
+    ->format('png')
+    ->colormap($colorPalette)
+    ->dither(true); // Dithering works with color palettes (optional; only use for images)
+
+$result = $imageStage('/path/to/input.png');
+echo "Processed color image: $result";
+```
+
 ### Model
 
 Access device model configurations.

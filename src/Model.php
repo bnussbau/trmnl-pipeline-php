@@ -24,6 +24,7 @@ enum Model: string
     case KOBO_AURA_ONE = 'kobo_aura_one';
     case KOBO_AURA_HD = 'kobo_aura_hd';
     case INKY_IMPRESSION_13_3 = 'inky_impression_13_3';
+    case M5_PAPER_S3 = 'm5_paper_s3';
 
     /**
      * Get the model data from JSON
@@ -96,6 +97,18 @@ enum Model: string
     public function getKind(): string
     {
         return $this->getData()->kind;
+    }
+
+    /**
+     * Get palette IDs for this model
+     *
+     * @return array<string>
+     *
+     * @throws ProcessingException
+     */
+    public function getPaletteIds(): array
+    {
+        return $this->getData()->paletteIds;
     }
 
     /**

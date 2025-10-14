@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
 use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
+use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
 use Bnussbau\TrmnlPipeline\Stages\ImageStage;
 use Bnussbau\TrmnlPipeline\TrmnlPipeline;
 
@@ -152,5 +153,42 @@ describe('Pipeline', function (): void {
 
         // The stage should not be configured (format should be null)
         expect($imageStage->getFormat())->toBeNull();
+    });
+
+    it('processes color palette end-to-end with inky_impression_13_3 model', function (): void {
+        $pipeline = new TrmnlPipeline;
+        $model = Model::INKY_IMPRESSION_13_3; // Has color-6a palette
+
+        // Verify model has color palette
+        expect($model->getPaletteIds())->toContain('color-6a');
+
+        // Load HTML file with color palette colors
+        $htmlPath = __DIR__.'/assets/color_6a_test.html';
+        expect(file_exists($htmlPath))->toBeTrue();
+
+        $htmlContent = file_get_contents($htmlPath);
+        expect($htmlContent)->toBeString();
+
+        // Create pipeline with BrowserStage and ImageStage
+        $browserStage = new BrowserStage;
+        $browserStage->html($htmlContent);
+
+        $imageStage = new ImageStage;
+
+        // Process through pipeline
+        $pipeline
+            ->model($model)
+            ->pipe($browserStage)
+            ->pipe($imageStage);
+
+        $result = $pipeline->process();
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
     });
 });
