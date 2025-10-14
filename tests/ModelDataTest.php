@@ -75,6 +75,7 @@ describe('ModelData', function (): void {
         expect($model->offsetX)->toBe(0);
         expect($model->offsetY)->toBe(0);
         expect($model->kind)->toBe('trmnl');
+        expect($model->paletteIds)->toBe(['bw']);
     });
 
     it('has correct properties for Amazon Kindle 2024 model', function (): void {
@@ -94,6 +95,15 @@ describe('ModelData', function (): void {
         expect($model->offsetX)->toBe(75);
         expect($model->offsetY)->toBe(25);
         expect($model->kind)->toBe('kindle');
+        expect($model->paletteIds)->toBe(['gray-256']);
+    });
+
+    it('has correct palette IDs for models with color palettes', function (): void {
+        $inkyImpression73 = ModelData::getByName('inky_impression_7_3');
+        $inkyImpression133 = ModelData::getByName('inky_impression_13_3');
+
+        expect($inkyImpression73->paletteIds)->toBe(['color-7a', 'bw']);
+        expect($inkyImpression133->paletteIds)->toBe(['color-6a', 'bw']);
     });
 
 });
