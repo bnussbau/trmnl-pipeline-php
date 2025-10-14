@@ -499,7 +499,7 @@ class ImageStage implements StageInterface
     /**
      * Set colormap on image using native Imagick functions
      *
-     * @param array<string> $colors Array of hex color codes
+     * @param  array<string>  $colors  Array of hex color codes
      *
      * @throws ImagickException
      * @throws ImagickPixelException
