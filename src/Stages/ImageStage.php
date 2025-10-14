@@ -9,6 +9,8 @@ use Bnussbau\TrmnlPipeline\Model;
 use Bnussbau\TrmnlPipeline\StageInterface;
 use Bnussbau\TrmnlPipeline\TrmnlPipeline;
 use Imagick;
+use ImagickDraw;
+use ImagickDrawException;
 use ImagickException;
 use ImagickPixel;
 use ImagickPixelException;
@@ -503,6 +505,7 @@ class ImageStage implements StageInterface
      *
      * @throws ImagickException
      * @throws ImagickPixelException
+     * @throws ImagickDrawException
      */
     private function setImageColormap(Imagick $imagick, array $colors): void
     {
@@ -512,9 +515,10 @@ class ImageStage implements StageInterface
 
         $counter = count($colors);
         for ($i = 0; $i < $counter; $i++) {
-            $pixel = new ImagickPixel($colors[$i]);
-            // @phpstan-ignore-next-line
-            $paletteImage->setImagePixelColor($i, 0, $pixel);
+            $draw = new ImagickDraw;
+            $draw->setFillColor(new ImagickPixel($colors[$i]));
+            $draw->point($i, 0);
+            $paletteImage->drawImage($draw);
         }
         $paletteImage->setImageType(Imagick::IMGTYPE_PALETTE);
 
