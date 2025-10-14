@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.3.1 - 2025-10-14
+
+### What's Changed
+
+* fix(#1): apply colormap to 2-bit images to prevent them from appearing too dark
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.3.0...0.3.1
+
 ## 0.3.0 - 2025-09-24
 
 ### What's Changed
