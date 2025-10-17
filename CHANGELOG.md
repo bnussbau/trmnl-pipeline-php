@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.3.2 - 2025-10-17
+
+### What's Changed
+
+* fix: Browsershot::html() creates new instance, use setHtml() instead
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.3.1...0.3.2
+
 ## 0.3.1 - 2025-10-14
 
 ### What's Changed
