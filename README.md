@@ -7,6 +7,8 @@
 
 TRMNL Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content (or images) into optimized images for e-ink devices supported by the [TRMNL Models API](https://usetrmnl.com/api/models). The image processing pipeline includes features like scaling, rotation, grayscale conversion, color quantization, and format-specific optimizations. This package is used in [usetrmnl/byos_laravel](https://github.com/usetrmnl/byos_laravel).
 
+Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/bnussbau/trmnl-pipeline-cmd)
+
 <img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/e84fc752-552e-4cb9-a1c0-aa2596176db7" />
 
 
