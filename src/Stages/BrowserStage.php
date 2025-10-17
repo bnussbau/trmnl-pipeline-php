@@ -138,7 +138,7 @@ class BrowserStage implements StageInterface
             if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
                 // Clone the provided instance and set HTML
                 $browsershot = clone $this->browsershotInstance;
-                $browsershot = $browsershot->html($this->html);
+                $browsershot = $browsershot->setHtml($this->html);
             } else {
                 // Create default Browsershot instance
                 $browsershot = Browsershot::html($this->html);
