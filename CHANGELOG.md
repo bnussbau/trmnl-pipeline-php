@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.3.3 - 2025-10-29
+
+### What's Changed
+
+* fix: 1-bit and 2-bit image remapping / dithering
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.3.2...0.3.3
+
 ## 0.3.2 - 2025-10-17
 
 ### What's Changed
