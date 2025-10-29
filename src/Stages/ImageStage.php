@@ -470,14 +470,17 @@ class ImageStage implements StageInterface
         $format = $this->format ?? self::DEFAULT_FORMAT;
         $bitDepth = $this->bitDepth ?? self::DEFAULT_BIT_DEPTH;
 
-        // Only apply colormap for PNG format with 2-bit depth
+        // Only apply colormap for PNG format with <= 2-bit depth
         // TODO: support other bit depths
-        if ($format !== 'png' || $bitDepth !== 2) {
+        if ($format !== 'png' || $bitDepth > 2) {
             return;
         }
 
-        // Use custom colormap if provided, otherwise use default 2-bit grayscale
-        $colors = $this->colormap ?? $this->getDefault2BitColormap();
+        // Determine colors: prefer explicit colormap, otherwise choose by bit depth
+        $colors = $this->colormap
+            ?? ($bitDepth == 2
+                ? $this->getDefault2BitColormap()
+                : ['#000000', '#ffffff']);
 
         // Apply colormap using native Imagick functions
         $this->setImageColormap($imagick, $colors);
