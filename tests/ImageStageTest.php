@@ -332,6 +332,32 @@ describe('ImageStage', function (): void {
         expect($stage->getFormat())->toBe('bmp');
     });
 
+    it('can enable and disable dithering', function (): void {
+        $stage = new ImageStage;
+
+        $resultEnable = $stage->dither(true);
+        expect($resultEnable)->toBe($stage);
+        expect($stage->getDither())->toBeTrue();
+
+        $resultDisable = $stage->dither(false);
+        expect($resultDisable)->toBe($stage);
+        expect($stage->getDither())->toBeFalse();
+    });
+
+    it('processes image with dithering disabled', function (): void {
+        $stage = new ImageStage;
+        $stage->width(50)->height(50)->dither(false);
+
+        $result = $stage($this->testImagePath);
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
+
     it('handles payload with zero string', function (): void {
         $stage = new ImageStage;
 

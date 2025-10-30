@@ -201,6 +201,19 @@ $imageStage
 $result = $imageStage('/path/to/input.png');
 ```
 
+#### Dithering
+
+Recommended for photos but not for images containing mostly text, where it can make edges and letters appear rough or unclear. Dithering converts a grayscale photo into only black and white pixels by using patterns or noise to simulate intermediate shades, creating the illusion of continuous tones through spatial averaging.
+
+```php
+use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+
+(new ImageStage())
+    ->dither()
+    ->colors(2)
+    ->bitDepth(1);
+```
+
 ### Model
 
 Access device model configurations.

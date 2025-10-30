@@ -63,6 +63,11 @@ class ImageStage implements StageInterface
     private ?array $colormap = null;
 
     /**
+     * Control global dithering behavior for this stage
+     */
+    private ?bool $dither = null;
+
+    /**
      * Set output format
      */
     public function format(string $format): self
@@ -170,6 +175,30 @@ class ImageStage implements StageInterface
         $this->colormap = $colors;
 
         return $this;
+    }
+
+    /**
+     * Enable or disable dithering during color quantization and palette remapping.
+     *
+     * When enabled, Floyd–Steinberg dithering is applied.
+     * This impacts both `quantize()` (via Imagick's dither option) and
+     * palette remapping in `applyColormap()`.
+     *
+     * @param  bool  $enabled  Whether to apply dithering
+     */
+    public function dither(bool $enabled = true): self
+    {
+        $this->dither = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get dithering setting (for testing)
+     */
+    public function getDither(): ?bool
+    {
+        return $this->dither;
     }
 
     /**
@@ -450,12 +479,12 @@ class ImageStage implements StageInterface
      */
     public function quantize(Imagick $imagick): void
     {
-        $imagick->setOption('dither', 'FloydSteinberg');
+        $imagick->setOption('dither', ($this->dither ?? true) ? 'FloydSteinberg' : 'None');
         $imagick->quantizeImage(
             $this->colors ?? self::DEFAULT_COLORS,
             Imagick::COLORSPACE_GRAY,
             0,
-            true,
+            (bool) ($this->dither ?? true),
             false
         );
     }
@@ -524,8 +553,7 @@ class ImageStage implements StageInterface
             $paletteImage->drawImage($draw);
         }
         $paletteImage->setImageType(Imagick::IMGTYPE_PALETTE);
-
-        $imagick->remapImage($paletteImage, Imagick::DITHERMETHOD_FLOYDSTEINBERG);
+        $imagick->remapImage($paletteImage, ($this->dither ? Imagick::DITHERMETHOD_FLOYDSTEINBERG : Imagick::DITHERMETHOD_NO));
     }
 
     /**
