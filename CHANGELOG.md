@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.4.0 - 2025-10-30
+
+### What's Changed
+
+* feat: add property 'dither()' to ImageStage to control dithering
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.3.3...0.4.0
+
 ## 0.3.3 - 2025-10-29
 
 ### What's Changed
