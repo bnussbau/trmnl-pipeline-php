@@ -2,6 +2,22 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.5.0 - 2025-11-25
+
+### What's Changed
+
+* feat(#7): add color palette support by @bnussbau in https://github.com/bnussbau/trmnl-pipeline-php/pull/9
+* feat: add models
+  * TRMNL X
+  * Amazon Kindle Scribe
+  * Seeed E1001 Monochrome
+  * Seeed E1002 (2-bit)
+  * Waveshare 4.26 (2-bit)
+  * Waveshare 7.5 B/W
+  
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.4.0...0.5.0
+
 ## 0.4.0 - 2025-10-30
 
 ### What's Changed
