@@ -39,6 +39,27 @@
             ]
         },
         {
+            "name": "v2",
+            "label": "TRMNL X",
+            "description": "TRMNL X",
+            "width": 1872,
+            "height": 1404,
+            "colors": 16,
+            "bit_depth": 4,
+            "scale_factor": 1.8,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "trmnl",
+            "palette_ids": [
+                "gray-16",
+                "gray-4",
+                "bw"
+            ]
+        },
+        {
             "name": "amazon_kindle_2024",
             "label": "Amazon Kindle 2024",
             "description": "Amazon Kindle 2024",
@@ -65,7 +86,7 @@
             "height": 768,
             "colors": 256,
             "bit_depth": 8,
-            "scale_factor": 1.0,
+            "scale_factor": 1.28,
             "rotation": 90,
             "mime_type": "image/png",
             "offset_x": 0,
@@ -84,7 +105,7 @@
             "height": 1072,
             "colors": 256,
             "bit_depth": 8,
-            "scale_factor": 1.0,
+            "scale_factor": 1.6,
             "rotation": 90,
             "mime_type": "image/png",
             "offset_x": 0,
@@ -183,13 +204,13 @@
             "height": 1264,
             "colors": 256,
             "bit_depth": 8,
-            "scale_factor": 1.0,
+            "scale_factor": 2.1,
             "rotation": 90,
             "mime_type": "image/png",
             "offset_x": 0,
             "offset_y": 0,
             "published_at": "2024-01-01T00:00:00.000Z",
-            "kind": "byod",
+            "kind": "kindle",
             "palette_ids": [
                 "gray-256"
             ]
@@ -294,6 +315,104 @@
             "palette_ids": [
                 "gray-16",
                 "gray-4",
+                "bw"
+            ]
+        },
+        {
+            "name": "amazon_kindle_scribe",
+            "label": "Amazon Kindle Scribe",
+            "description": "Amazon Kindle Scribe",
+            "width": 2480,
+            "height": 1860,
+            "colors": 256,
+            "bit_depth": 8,
+            "scale_factor": 2.5,
+            "rotation": 90,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "kindle",
+            "palette_ids": [
+                "gray-256"
+            ]
+        },
+        {
+            "name": "seeed_e1001",
+            "label": "Seeed E1001 Monochrome",
+            "description": "Seeed E1001 Monochrome",
+            "width": 800,
+            "height": 480,
+            "colors": 4,
+            "bit_depth": 2,
+            "scale_factor": 1.0,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "byod",
+            "palette_ids": [
+                "gray-4",
+                "bw"
+            ]
+        },
+        {
+            "name": "seeed_e1002",
+            "label": "Seeed E1002 (2-bit)",
+            "description": "Seeed E1002 (2-bit)",
+            "width": 800,
+            "height": 480,
+            "colors": 4,
+            "bit_depth": 2,
+            "scale_factor": 1.0,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "byod",
+            "palette_ids": [
+                "gray-4",
+                "bw"
+            ]
+        },
+        {
+            "name": "waveshare_4_26",
+            "label": "Waveshare 4.26 (2-bit)",
+            "description": "Waveshare 4.26 (2-bit)",
+            "width": 800,
+            "height": 480,
+            "colors": 4,
+            "bit_depth": 2,
+            "scale_factor": 1.0,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "byod",
+            "palette_ids": [
+                "gray-4",
+                "bw"
+            ]
+        },
+        {
+            "name": "waveshare_7_5_bw",
+            "label": "Waveshare 7.5 B/W",
+            "description": "Waveshare 7.5 B/W",
+            "width": 800,
+            "height": 480,
+            "colors": 2,
+            "bit_depth": 1,
+            "scale_factor": 1.0,
+            "rotation": 0,
+            "mime_type": "image/png",
+            "offset_x": 0,
+            "offset_y": 0,
+            "published_at": "2024-01-01T00:00:00.000Z",
+            "kind": "byod",
+            "palette_ids": [
                 "bw"
             ]
         }
