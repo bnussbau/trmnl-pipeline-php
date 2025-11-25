@@ -12,6 +12,7 @@ enum Model: string
     case OG = 'og';
     case OG_PNG = 'og_png';
     case OG_BMP = 'og_bmp';
+    case V2 = 'v2';
     case AMAZON_KINDLE_2024 = 'amazon_kindle_2024';
     case AMAZON_KINDLE_PAPERWHITE_6TH_GEN = 'amazon_kindle_paperwhite_6th_gen';
     case AMAZON_KINDLE_PAPERWHITE_7TH_GEN = 'amazon_kindle_paperwhite_7th_gen';
@@ -25,6 +26,11 @@ enum Model: string
     case KOBO_AURA_HD = 'kobo_aura_hd';
     case INKY_IMPRESSION_13_3 = 'inky_impression_13_3';
     case M5_PAPER_S3 = 'm5_paper_s3';
+    case AMAZON_KINDLE_SCRIBE = 'amazon_kindle_scribe';
+    case SEEED_E1001 = 'seeed_e1001';
+    case SEEED_E1002 = 'seeed_e1002';
+    case WAVESHARE_4_26 = 'waveshare_4_26';
+    case WAVESHARE_7_5_BW = 'waveshare_7_5_bw';
 
     /**
      * Get the model data from JSON
