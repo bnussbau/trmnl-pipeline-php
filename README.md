@@ -95,6 +95,27 @@ $image = new TrmnlPipeline()
 echo "Generated image: $image";
 ```
 
+### Setting the Browser Timezone (optional)
+
+You can control the timezone used by the headless browser when rendering your HTML by calling `timezone()` on `BrowserStage` with any valid PHP timezone identifier (e.g., `UTC`, `America/New_York`, `Europe/Berlin`).
+
+Notes:
+- The timezone is only applied when you explicitly call `timezone()`. If you don’t explicitly set the timezone, the browser will use the system timezone.
+- This can be helpful when your HTML or scripts render time/date-dependent content.
+
+Example:
+
+```php
+use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+
+$image = (new \Bnussbau\TrmnlPipeline\TrmnlPipeline())
+    ->pipe((new BrowserStage())
+        ->timezone('America/New_York')
+        ->html('<html><body><script>document.write(new Date().toString())</script></body></html>'))
+    ->pipe(new \Bnussbau\TrmnlPipeline\Stages\ImageStage())
+    ->process();
+```
+
 ### Browser Rendering on AWS Lambda
 
 You can use different Browsershot implementations (like BrowsershotLambda) by passing an instance to the BrowserStage.
