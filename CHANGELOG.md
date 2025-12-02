@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.6.0 - 2025-12-02
+
+### What's Changed
+
+* feat: add timezone option to BrowserStage
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.5.0...0.6.0
+
 ## 0.5.0 - 2025-11-25
 
 ### What's Changed
