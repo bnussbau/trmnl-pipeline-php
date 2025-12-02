@@ -33,6 +33,8 @@ class BrowserStage implements StageInterface
     /** @var array<string, mixed> */
     private array $browsershotOptions = [];
 
+    private ?string $timezone = null;
+
     public function __construct(private readonly ?Browsershot $browsershotInstance = null) {}
 
     /**
@@ -71,6 +73,18 @@ class BrowserStage implements StageInterface
     public function setBrowsershotOption(string $name, mixed $value): self
     {
         $this->browsershotOptions[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set the timezone for the Browsershot environment.
+     *
+     * Example: 'UTC', 'America/New_York', 'Europe/Berlin'
+     */
+    public function timezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
 
         return $this;
     }
@@ -147,6 +161,11 @@ class BrowserStage implements StageInterface
             $browsershot = $browsershot
                 ->windowSize($this->width ?? self::DEFAULT_WIDTH, $this->height ?? self::DEFAULT_HEIGHT)
                 ->setScreenshotType('png');
+
+            // Override timezone if explicitly provided
+            if ($this->timezone !== null) {
+                $browsershot = $browsershot->setEnvironmentOptions(['TZ' => $this->timezone]);
+            }
 
             // Apply custom options
             foreach ($this->browsershotOptions as $name => $value) {
