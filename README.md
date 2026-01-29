@@ -5,7 +5,7 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/bnussbau/trmnl-pipeline-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bnussbau/trmnl-pipeline-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 
-TRMNL Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content (or images) into optimized images for e-ink devices supported by the [TRMNL Models API](https://usetrmnl.com/api/models). The image processing pipeline includes features like scaling, rotation, grayscale conversion, color quantization, and format-specific optimizations. This package is used in [usetrmnl/byos_laravel](https://github.com/usetrmnl/byos_laravel).
+TRMNL Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content (or images) into optimized images for e-ink devices supported by the [TRMNL Models API](https://trmnl.com/api/models). The image processing pipeline includes features like scaling, rotation, grayscale conversion, color quantization, and format-specific optimizations. This package is used in [usetrmnl/byos_laravel](https://github.com/usetrmnl/byos_laravel).
 
 Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/bnussbau/trmnl-pipeline-cmd)
 
