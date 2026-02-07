@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.7.0 - 2026-02-07
+
+### What's Changed
+
+* feat: enhance color palette support and update model configurations
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.6.0...0.7.0
+
 ## 0.6.0 - 2025-12-02
 
 ### What's Changed
