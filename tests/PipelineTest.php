@@ -191,4 +191,40 @@ describe('Pipeline', function (): void {
             unlink($result);
         }
     });
+
+    it('processes color palette end-to-end with seed_e1002 model', function (): void {
+        $pipeline = new TrmnlPipeline;
+        $model = Model::SEEED_E1002; // Has color-spectra6 palette
+
+        // Verify model has color palette
+        expect($model->getPaletteIds())->toContain('color-spectra6');
+
+        // Load HTML file with color palette colors
+        $htmlPath = __DIR__ . '/assets/color_spectra6_test.html';
+        expect(file_exists($htmlPath))->toBeTrue();
+        $htmlContent = file_get_contents($htmlPath);
+        expect($htmlContent)->toBeString();
+
+        // Create pipeline with BrowserStage and ImageStage
+        $browserStage = new BrowserStage;
+        $browserStage->html($htmlContent);
+
+        $imageStage = new ImageStage;
+
+        // Process through pipeline
+        $pipeline
+            ->model($model)
+            ->pipe($browserStage)
+            ->pipe($imageStage);
+
+        $result = $pipeline->process();
+
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+        
+        // Clean up
+        if (file_exists($result)) {
+            unlink($result);
+        }
+    });
 });

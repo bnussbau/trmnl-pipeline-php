@@ -20,7 +20,7 @@ describe('PaletteData', function (): void {
 
         expect($palette)->toBeInstanceOf(PaletteData::class);
         expect($palette->id)->toBe('bw');
-        expect($palette->name)->toBe('Black & White');
+        expect($palette->name)->toBe('Black & White (1-bit)');
         expect($palette->grays)->toBe(2);
         expect($palette->colors)->toBeNull();
     });

@@ -533,7 +533,7 @@ class ImageStage implements StageInterface
         $imagick->setOption('dither', ($this->dither ?? true) ? 'FloydSteinberg' : 'None');
 
         // Use RGB colorspace for color palettes, GRAY for grayscale-only
-        $colorspace = $this->isColorPalette() ? Imagick::COLORSPACE_RGB : Imagick::COLORSPACE_GRAY;
+        $colorspace = $this->isColorPalette() ? Imagick::COLORSPACE_SRGB : Imagick::COLORSPACE_GRAY;
 
         // If colormap is set (from color palette), use the number of colors in the colormap
         // Otherwise use the colors property from model or default

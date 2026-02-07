@@ -172,6 +172,7 @@
             "kind": "byod",
             "palette_ids": [
                 "color-7a",
+                "color-6a",
                 "bw"
             ]
         },
@@ -364,7 +365,7 @@
             "width": 800,
             "height": 480,
             "colors": 4,
-            "bit_depth": 2,
+            "bit_depth": 8,
             "scale_factor": 1.0,
             "rotation": 0,
             "mime_type": "image/png",
@@ -373,6 +374,8 @@
             "published_at": "2024-01-01T00:00:00.000Z",
             "kind": "byod",
             "palette_ids": [
+                "color-spectra6",
+                "color-6a",
                 "gray-4",
                 "bw"
             ]

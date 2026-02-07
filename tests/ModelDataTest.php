@@ -102,7 +102,7 @@ describe('ModelData', function (): void {
         $inkyImpression73 = ModelData::getByName('inky_impression_7_3');
         $inkyImpression133 = ModelData::getByName('inky_impression_13_3');
 
-        expect($inkyImpression73->paletteIds)->toBe(['color-7a', 'bw']);
+        expect($inkyImpression73->paletteIds)->toBe(['color-7a','color-6a','bw']);
         expect($inkyImpression133->paletteIds)->toBe(['color-6a', 'bw']);
     });
 
