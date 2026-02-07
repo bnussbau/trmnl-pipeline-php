@@ -200,7 +200,7 @@ describe('Pipeline', function (): void {
         expect($model->getPaletteIds())->toContain('color-spectra6');
 
         // Load HTML file with color palette colors
-        $htmlPath = __DIR__ . '/assets/color_spectra6_test.html';
+        $htmlPath = __DIR__.'/assets/color_spectra6_test.html';
         expect(file_exists($htmlPath))->toBeTrue();
         $htmlContent = file_get_contents($htmlPath);
         expect($htmlContent)->toBeString();
@@ -221,7 +221,7 @@ describe('Pipeline', function (): void {
 
         expect($result)->toBeString();
         expect(file_exists($result))->toBeTrue();
-        
+
         // Clean up
         if (file_exists($result)) {
             unlink($result);
