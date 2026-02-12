@@ -20,7 +20,7 @@ Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/b
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 8.2 or higher (PHP 8.4 + 8.5 are tested in CI)
 - Imagick extension
 - Spatie Browsershot (requires Node.js and Puppeteer -> see [Browsershot Requirements](https://spatie.be/docs/browsershot/v4/requirements))
 
