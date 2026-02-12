@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Bnussbau\TrmnlPipeline\Data\PaletteData;
+use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
 
 describe('PaletteData', function (): void {
     it('can load palettes from JSON', function (): void {
@@ -75,5 +76,83 @@ describe('PaletteData', function (): void {
             '#FFA500',
         ]);
         expect($palette->frameworkClass)->toBe('');
+    });
+
+    it('throws when palettes JSON file does not exist', function (): void {
+        $missingPath = sys_get_temp_dir().'/palettes-nonexistent-'.uniqid().'.json';
+
+        expect(fn () => PaletteData::loadFromJson($missingPath))
+            ->toThrow(ProcessingException::class, 'Palettes JSON file not found at: '.$missingPath);
+    });
+
+    it('throws when palettes JSON file cannot be read', function (): void {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
+        if ($tmpFile === false) {
+            throw new \RuntimeException('Failed to create temp file');
+        }
+        chmod($tmpFile, 0000);
+        try {
+            expect(fn () => PaletteData::loadFromJson($tmpFile))
+                ->toThrow(ProcessingException::class, 'Failed to read palettes JSON file');
+        } finally {
+            chmod($tmpFile, 0600);
+            unlink($tmpFile);
+        }
+    });
+
+    it('throws when palettes JSON is invalid', function (): void {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
+        if ($tmpFile === false) {
+            throw new \RuntimeException('Failed to create temp file');
+        }
+        try {
+            file_put_contents($tmpFile, '{ invalid json }');
+            expect(fn () => PaletteData::loadFromJson($tmpFile))
+                ->toThrow(ProcessingException::class, 'Invalid JSON in palettes file:');
+        } finally {
+            unlink($tmpFile);
+        }
+    });
+
+    it('throws when palettes JSON does not decode to array', function (): void {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
+        if ($tmpFile === false) {
+            throw new \RuntimeException('Failed to create temp file');
+        }
+        try {
+            file_put_contents($tmpFile, '123');
+            expect(fn () => PaletteData::loadFromJson($tmpFile))
+                ->toThrow(ProcessingException::class, 'Invalid JSON structure: expected array');
+        } finally {
+            unlink($tmpFile);
+        }
+    });
+
+    it('throws when palettes JSON is missing data array', function (): void {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
+        if ($tmpFile === false) {
+            throw new \RuntimeException('Failed to create temp file');
+        }
+        try {
+            file_put_contents($tmpFile, '{}');
+            expect(fn () => PaletteData::loadFromJson($tmpFile))
+                ->toThrow(ProcessingException::class, "Invalid palettes JSON structure: missing 'data' array");
+        } finally {
+            unlink($tmpFile);
+        }
+    });
+
+    it('throws when palette entry is missing id field', function (): void {
+        $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
+        if ($tmpFile === false) {
+            throw new \RuntimeException('Failed to create temp file');
+        }
+        try {
+            file_put_contents($tmpFile, '{"data":[{"name":"no-id"}]}');
+            expect(fn () => PaletteData::loadFromJson($tmpFile))
+                ->toThrow(ProcessingException::class, "Palette data missing required 'id' field");
+        } finally {
+            unlink($tmpFile);
+        }
     });
 });

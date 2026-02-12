@@ -23,13 +23,14 @@ readonly class PaletteData
     /**
      * Load palette data from JSON file
      *
+     * @param  string|null  $jsonPath  Optional path to JSON file (defaults to palettes.json in package)
      * @return array<string, PaletteData>
      *
      * @throws ProcessingException
      */
-    public static function loadFromJson(): array
+    public static function loadFromJson(?string $jsonPath = null): array
     {
-        $jsonPath = __DIR__.'/palettes.json';
+        $jsonPath = $jsonPath ?? __DIR__.'/palettes.json';
 
         if (! file_exists($jsonPath)) {
             throw new ProcessingException("Palettes JSON file not found at: {$jsonPath}");
