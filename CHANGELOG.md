@@ -2,6 +2,14 @@
 
 All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
+## 0.8.0 - 2026-02-12
+
+### What's Changed
+
+* feat: add URL support to BrowserStage for rendering web pages
+
+**Full Changelog**: https://github.com/bnussbau/trmnl-pipeline-php/compare/0.7.0...0.8.0
+
 ## 0.7.0 - 2026-02-07
 
 ### What's Changed
