@@ -24,6 +24,8 @@ class BrowserStage implements StageInterface
 
     private ?string $html = null;
 
+    private ?string $url = null;
+
     private ?int $width = null;
 
     private ?int $height = null;
@@ -43,6 +45,16 @@ class BrowserStage implements StageInterface
     public function html(string $html): self
     {
         $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * Set URL to render (alternative to HTML content; mutually exclusive with html())
+     */
+    public function url(string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
@@ -136,8 +148,15 @@ class BrowserStage implements StageInterface
      */
     public function __invoke(mixed $payload): string
     {
-        if ($this->html === null || $this->html === '') {
-            throw new ProcessingException('No HTML content provided for browser rendering. Use html() method to set HTML content.');
+        $hasHtml = $this->html !== null && $this->html !== '';
+        $hasUrl = $this->url !== null && $this->url !== '';
+
+        if ($hasHtml && $hasUrl) {
+            throw new ProcessingException('Provide either HTML content or a URL, not both. Use html() or url().');
+        }
+
+        if (! $hasHtml && ! $hasUrl) {
+            throw new ProcessingException('No HTML content or URL provided for browser rendering. Use html() or url() method to set content or URL.');
         }
 
         if (TrmnlPipeline::isFake()) {
@@ -148,14 +167,20 @@ class BrowserStage implements StageInterface
             // Create temporary file for output
             $tempFile = tempnam(sys_get_temp_dir(), 'browsershot_').'.png';
 
-            // Configure Browsershot - use provided instance or create default
-            if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
-                // Clone the provided instance and set HTML
-                $browsershot = clone $this->browsershotInstance;
-                $browsershot = $browsershot->setHtml($this->html);
+            // Configure Browsershot - URL or HTML, use provided instance or create default
+            if ($hasUrl && $this->url !== null) {
+                if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
+                    $browsershot = (clone $this->browsershotInstance)->setUrl($this->url);
+                } else {
+                    $browsershot = Browsershot::url($this->url);
+                }
             } else {
-                // Create default Browsershot instance
-                $browsershot = Browsershot::html($this->html);
+                $html = $this->html ?? '';
+                if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
+                    $browsershot = (clone $this->browsershotInstance)->setHtml($html);
+                } else {
+                    $browsershot = Browsershot::html($html);
+                }
             }
 
             $browsershot = $browsershot

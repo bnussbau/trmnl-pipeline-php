@@ -188,7 +188,10 @@ $result = $pipeline->process($payload); // Process payload
 
 ### BrowserStage
 
-Converts HTML to PNG images using Spatie Browsershot.
+Converts HTML or a URL to PNG images using Spatie Browsershot. You must provide content via either `html()` or `url()` (mutually exclusive).
+
+- **`html(string $html)`** — Set HTML content to render (e.g. a template or string).
+- **`url(string $url)`** — Set a URL to capture (e.g. `https://example.com`). Use this when you want to screenshot a live webpage instead of rendering HTML. If the page is not black-and-white or contains photos, combine with **`->dither()`** on `ImageStage` so the image is converted cleanly to the model’s limited palette; otherwise gradients and images can look harsh or banded.
 
 ```php
 $browserStage = new BrowserStage();
@@ -200,6 +203,16 @@ $browserStage
     ->setBrowsershotOption('addStyleTag', json_encode(['content' => 'body{ color: red; }']));
 
 $result = $browserStage(null);
+```
+
+Screenshot from URL with dithering (recommended for full-color or image-heavy pages):
+
+```php
+$image = (new TrmnlPipeline())
+    ->model(Model::OG)
+    ->pipe((new BrowserStage())->url('https://example.com'))
+    ->pipe((new ImageStage())->dither())
+    ->process();
 ```
 
 ### ImageStage

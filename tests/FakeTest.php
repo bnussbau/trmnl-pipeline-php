@@ -114,7 +114,7 @@ it('still validates input in fake mode', function (): void {
     $browserStage = new BrowserStage;
 
     expect(fn (): string => $browserStage(null))
-        ->toThrow(Exception::class, 'No HTML content provided for browser rendering');
+        ->toThrow(Exception::class, 'No HTML content or URL provided for browser rendering');
 });
 
 it('still validates file existence in fake mode', function (): void {

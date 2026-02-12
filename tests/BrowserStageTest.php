@@ -63,11 +63,75 @@ describe('BrowserStage', function (): void {
         expect($result)->toBe($stage);
     });
 
-    it('throws exception when no HTML content is provided', function (): void {
+    it('can set URL', function (): void {
+        $stage = new BrowserStage;
+
+        $result = $stage->url('https://example.com');
+
+        expect($result)->toBe($stage);
+    });
+
+    it('throws exception when no HTML content or URL is provided', function (): void {
         $stage = new BrowserStage;
 
         expect(fn (): string => $stage(null))
-            ->toThrow(ProcessingException::class, 'No HTML content provided for browser rendering. Use html() method to set HTML content.');
+            ->toThrow(ProcessingException::class, 'No HTML content or URL provided for browser rendering. Use html() or url() method to set content or URL.');
+    });
+
+    it('throws exception when both HTML and URL are provided', function (): void {
+        $stage = new BrowserStage;
+        $stage->html('<html><body>Test</body></html>')->url('https://example.com');
+
+        expect(fn (): string => $stage(null))
+            ->toThrow(ProcessingException::class, 'Provide either HTML content or a URL, not both. Use html() or url().');
+    });
+
+    it('can process URL set on stage', function (): void {
+        $browsershot = new class extends Browsershot
+        {
+            public function setUrl(string $url): static
+            {
+                return $this;
+            }
+
+            public function windowSize(int $width, int $height): static
+            {
+                return $this;
+            }
+
+            public function setScreenshotType(string $type, ?int $quality = null): static
+            {
+                return $this;
+            }
+
+            public function setOption($key, $value): static
+            {
+                return $this;
+            }
+
+            public function save(string $targetPath): void
+            {
+                $img = imagecreate(1, 1);
+                if ($img === false) {
+                    return;
+                }
+                $white = imagecolorallocate($img, 255, 255, 255);
+                if ($white !== false) {
+                    imagefill($img, 0, 0, $white);
+                }
+                imagepng($img, $targetPath);
+                imagedestroy($img);
+            }
+        };
+        $stage = new BrowserStage($browsershot);
+        $stage->url('https://example.com');
+
+        $result = $stage(null);
+        expect($result)->toBeString();
+        expect(file_exists($result))->toBeTrue();
+        if (file_exists($result)) {
+            unlink($result);
+        }
     });
 
     it('can process HTML set on stage', function (): void {
