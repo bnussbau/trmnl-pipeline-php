@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Bnussbau\EpaperPipeline\Stages;
 
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 use Bnussbau\EpaperPipeline\Model;
 use Bnussbau\EpaperPipeline\StageInterface;
-use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Spatie\Browsershot\Browsershot;
 
 /**
@@ -169,14 +169,14 @@ class BrowserStage implements StageInterface
 
             // Configure Browsershot - URL or HTML, use provided instance or create default
             if ($hasUrl && $this->url !== null) {
-                if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
+                if ($this->browsershotInstance instanceof Browsershot) {
                     $browsershot = (clone $this->browsershotInstance)->setUrl($this->url);
                 } else {
                     $browsershot = Browsershot::url($this->url);
                 }
             } else {
                 $html = $this->html ?? '';
-                if ($this->browsershotInstance instanceof \Spatie\Browsershot\Browsershot) {
+                if ($this->browsershotInstance instanceof Browsershot) {
                     $browsershot = (clone $this->browsershotInstance)->setHtml($html);
                 } else {
                     $browsershot = Browsershot::html($html);

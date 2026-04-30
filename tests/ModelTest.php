@@ -60,7 +60,7 @@ describe('Model', function (): void {
     });
 
     it('throws exception for invalid model name', function (): void {
-        expect(fn (): \Bnussbau\EpaperPipeline\Data\ModelData => ModelData::getByName('invalid_model'))
+        expect(fn (): ModelData => ModelData::getByName('invalid_model'))
             ->toThrow(ProcessingException::class, "Model 'invalid_model' not found in models data");
     });
 });

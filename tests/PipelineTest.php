@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 use Bnussbau\EpaperPipeline\Model;
 use Bnussbau\EpaperPipeline\StageInterface;
 use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 use Bnussbau\EpaperPipeline\Stages\ImageStage;
-use Bnussbau\EpaperPipeline\EpaperPipeline;
 
 describe('Pipeline', function (): void {
     it('can be instantiated', function (): void {
@@ -99,7 +99,7 @@ describe('Pipeline', function (): void {
         {
             public function __invoke(mixed $payload): mixed
             {
-                throw new \Exception('Stage failed');
+                throw new Exception('Stage failed');
             }
         };
 

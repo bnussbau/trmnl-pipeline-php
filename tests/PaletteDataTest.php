@@ -88,7 +88,7 @@ describe('PaletteData', function (): void {
     it('throws when palettes JSON file cannot be read', function (): void {
         $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
         if ($tmpFile === false) {
-            throw new \RuntimeException('Failed to create temp file');
+            throw new RuntimeException('Failed to create temp file');
         }
         chmod($tmpFile, 0000);
         try {
@@ -103,7 +103,7 @@ describe('PaletteData', function (): void {
     it('throws when palettes JSON is invalid', function (): void {
         $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
         if ($tmpFile === false) {
-            throw new \RuntimeException('Failed to create temp file');
+            throw new RuntimeException('Failed to create temp file');
         }
         try {
             file_put_contents($tmpFile, '{ invalid json }');
@@ -117,7 +117,7 @@ describe('PaletteData', function (): void {
     it('throws when palettes JSON does not decode to array', function (): void {
         $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
         if ($tmpFile === false) {
-            throw new \RuntimeException('Failed to create temp file');
+            throw new RuntimeException('Failed to create temp file');
         }
         try {
             file_put_contents($tmpFile, '123');
@@ -131,7 +131,7 @@ describe('PaletteData', function (): void {
     it('throws when palettes JSON is missing data array', function (): void {
         $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
         if ($tmpFile === false) {
-            throw new \RuntimeException('Failed to create temp file');
+            throw new RuntimeException('Failed to create temp file');
         }
         try {
             file_put_contents($tmpFile, '{}');
@@ -145,7 +145,7 @@ describe('PaletteData', function (): void {
     it('throws when palette entry is missing id field', function (): void {
         $tmpFile = tempnam(sys_get_temp_dir(), 'palettes');
         if ($tmpFile === false) {
-            throw new \RuntimeException('Failed to create temp file');
+            throw new RuntimeException('Failed to create temp file');
         }
         try {
             file_put_contents($tmpFile, '{"data":[{"name":"no-id"}]}');

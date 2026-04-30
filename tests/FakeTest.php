@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Bnussbau\EpaperPipeline\Model;
 use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 use Bnussbau\EpaperPipeline\Stages\ImageStage;
-use Bnussbau\EpaperPipeline\EpaperPipeline;
 
 afterEach(function (): void {
     // Clean up after each test

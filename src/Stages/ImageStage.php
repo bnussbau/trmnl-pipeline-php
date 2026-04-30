@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Bnussbau\EpaperPipeline\Stages;
 
 use Bnussbau\EpaperPipeline\Data\PaletteData;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 use Bnussbau\EpaperPipeline\Model;
 use Bnussbau\EpaperPipeline\StageInterface;
-use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Imagick;
 use ImagickDraw;
 use ImagickDrawException;
