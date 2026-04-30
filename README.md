@@ -10,7 +10,8 @@ Devices model templated are provided by the [TRMNL Models API](https://trmnl.com
 
 Command line wrapper for this package: [epaper-pipeline-cmd](https://github.com/bnussbau/trmnl-pipeline-cmd)
 
-<img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/e84fc752-552e-4cb9-a1c0-aa2596176db7" />
+<img width="800" height="480" alt="browsershot_cham2v3cji4nbZ5JXN6_processed" src="https://github.com/user-attachments/assets/0bb7aa88-3854-4e4b-a67d-3980196027b1" />
+
 
 
 ## Features
