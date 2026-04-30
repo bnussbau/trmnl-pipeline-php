@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 
 afterEach(function (): void {
     // Clean up after each test
-    TrmnlPipeline::restore();
+    EpaperPipeline::restore();
 });
 
 it('can enable and disable fake mode', function (): void {
-    expect(TrmnlPipeline::isFake())->toBeFalse();
+    expect(EpaperPipeline::isFake())->toBeFalse();
 
-    TrmnlPipeline::fake();
-    expect(TrmnlPipeline::isFake())->toBeTrue();
+    EpaperPipeline::fake();
+    expect(EpaperPipeline::isFake())->toBeTrue();
 
-    TrmnlPipeline::restore();
-    expect(TrmnlPipeline::isFake())->toBeFalse();
+    EpaperPipeline::restore();
+    expect(EpaperPipeline::isFake())->toBeFalse();
 });
 
 it('returns mock image path when browser stage is in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     $browserStage = new BrowserStage;
     $browserStage->html('<html><body>Test</body></html>');
@@ -37,7 +37,7 @@ it('returns mock image path when browser stage is in fake mode', function (): vo
 });
 
 it('returns mock processed image path when image stage is in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     // Create a temporary input image
     $inputImage = tempnam(sys_get_temp_dir(), 'test_input_').'.png';
@@ -62,11 +62,11 @@ it('returns mock processed image path when image stage is in fake mode', functio
 });
 
 it('processes full pipeline in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     $html = '<html><body>Test Content</body></html>';
 
-    $result = (new TrmnlPipeline)
+    $result = (new EpaperPipeline)
         ->model(Model::OG)
         ->pipe((new BrowserStage)->html($html))
         ->pipe(new ImageStage)
@@ -81,7 +81,7 @@ it('processes full pipeline in fake mode', function (): void {
 });
 
 it('respects image stage configuration in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     // Create a temporary input image
     $inputImage = tempnam(sys_get_temp_dir(), 'test_input_').'.png';
@@ -109,7 +109,7 @@ it('respects image stage configuration in fake mode', function (): void {
 });
 
 it('still validates input in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     $browserStage = new BrowserStage;
 
@@ -118,7 +118,7 @@ it('still validates input in fake mode', function (): void {
 });
 
 it('still validates file existence in fake mode', function (): void {
-    TrmnlPipeline::fake();
+    EpaperPipeline::fake();
 
     $imageStage = new ImageStage;
 

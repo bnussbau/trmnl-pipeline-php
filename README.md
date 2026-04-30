@@ -1,13 +1,14 @@
-# TRMNL Pipeline PHP
+# ePaper Pipeline PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/bnussbau/epaper-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 [![License](https://img.shields.io/badge/License%20-MIT-blue?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 [![Tests](https://img.shields.io/github/actions/workflow/status/bnussbau/trmnl-pipeline-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bnussbau/trmnl-pipeline-php/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/trmnl-pipeline-php.svg?style=flat-square)](https://packagist.org/packages/bnussbau/trmnl-pipeline-php)
 
-TRMNL Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content (or images) into optimized images for e-ink devices supported by the [TRMNL Models API](https://trmnl.com/api/models). The image processing pipeline includes features like scaling, rotation, grayscale conversion, color quantization, and format-specific optimizations. This package is used in [usetrmnl/larapaper](https://github.com/usetrmnl/larapaper).
+ePaper Pipeline PHP provides a streamlined API, based on the pipeline pattern, for converting HTML content (or images) into optimized images for e-Paper devices. The image processing pipeline includes features like scaling, rotation, grayscale conversion, color quantization, and format-specific optimizations. This package is used in [usetrmnl/larapaper](https://github.com/usetrmnl/larapaper).
+Devices model templated are provided by the [TRMNL Models API](https://trmnl.com/api/models).
 
-Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/bnussbau/trmnl-pipeline-cmd)
+Command line wrapper for this package: [epaper-pipeline-cmd](https://github.com/bnussbau/trmnl-pipeline-cmd)
 
 <img width="800" height="480" alt="image" src="https://github.com/user-attachments/assets/e84fc752-552e-4cb9-a1c0-aa2596176db7" />
 
@@ -16,7 +17,7 @@ Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/b
 
 - **Browser Rendering**: HTML to image conversion using Spatie Browsershot
 - **Image Processing**: Advanced image manipulation using ImageMagick
-- **TRMNL Models API**: Automatic support for >=12 different e-ink device models.
+- **TRMNL Models API**: Automatic support for >=12 different e-paper device models.
 
 ## Requirements
 
@@ -28,7 +29,7 @@ Command line wrapper for this package: [trmnl-pipeline-cmd](https://github.com/b
 You can install the package via composer:
 
 ```bash
-composer require bnussbau/trmnl-pipeline-php
+composer require bnussbau/epaper-pipeline-php
 ```
 
 ## Usage
@@ -37,14 +38,14 @@ composer require bnussbau/trmnl-pipeline-php
 Render HTML and convert to image compatible with the TRMNL OG model.
 
 ```php
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 
 $html = file_get_contents('./tests/assets/framework2_og.html');
 
-$image = new TrmnlPipeline()
+$image = new EpaperPipeline()
     ->model(Model::OG)
     ->pipe(new BrowserStage()
         ->html($html))
@@ -58,8 +59,8 @@ Generates PNG 800x480 8-bit Grayscale Gray 4c
 ### Image Processing Only
 
 ```php
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
-use Bnussbau\TrmnlPipeline\Model;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Model;
 
 $imageStage = new ImageStage();
 $imageStage->configureFromModel(Model::OG_BMP);
@@ -73,14 +74,14 @@ Generates BMP3 800x480 1-bit sRGB 2c
 ### Manual Configuration
 
 ```php
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 
 $html = file_get_contents('./tests/assets/framework2_og.html');
 
-$image = new TrmnlPipeline()
+$image = new EpaperPipeline()
     ->pipe(new BrowserStage()
         ->html($html))
     ->pipe(new ImageStage()
@@ -106,13 +107,13 @@ Notes:
 Example:
 
 ```php
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 
-$image = (new \Bnussbau\TrmnlPipeline\TrmnlPipeline())
+$image = (new \Bnussbau\EpaperPipeline\EpaperPipeline())
     ->pipe((new BrowserStage())
         ->timezone('America/New_York')
         ->html('<html><body><script>document.write(new Date().toString())</script></body></html>'))
-    ->pipe(new \Bnussbau\TrmnlPipeline\Stages\ImageStage())
+    ->pipe(new \Bnussbau\EpaperPipeline\Stages\ImageStage())
     ->process();
 ```
 
@@ -122,10 +123,10 @@ You can use different Browsershot implementations (like BrowsershotLambda) by pa
 See installation instructions and requirments for [stefanzweifel/sidecar-browsershot](https://github.com/stefanzweifel/sidecar-browsershot).
 
 ```php
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 use Wnx\SidecarBrowsershot\BrowsershotLambda;
 
 $html = file_get_contents('./tests/assets/framework2_og.html');
@@ -133,7 +134,7 @@ $html = file_get_contents('./tests/assets/framework2_og.html');
 // Create your custom Browsershot instance (e.g., BrowsershotLambda)
 $browsershotLambda = new BrowsershotLambda();
 
-$image = new TrmnlPipeline()
+$image = new EpaperPipeline()
     ->model(Model::OG)
     ->pipe(new BrowserStage($browsershotLambda)
         ->html($html))
@@ -150,17 +151,17 @@ This allows you to use BrowsershotLambda or any other Browsershot implementation
 You can use the `fake()` method to prevent actual Browsershot and Imagick operations:
 
 ```php
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 
 // Enable fake mode for testing
-TrmnlPipeline::fake();
+EpaperPipeline::fake();
 
 $html = '<html><body>Test Content</body></html>';
 
-$result = (new TrmnlPipeline())
+$result = (new EpaperPipeline())
     ->model(Model::OG)
     ->pipe(new BrowserStage()->html($html))
     ->pipe(new ImageStage())
@@ -169,7 +170,7 @@ $result = (new TrmnlPipeline())
 echo "Mock image generated: $result";
 
 // Disable fake mode when done
-TrmnlPipeline::restore();
+EpaperPipeline::restore();
 ```
 
 ## API Reference
@@ -208,7 +209,7 @@ $result = $browserStage(null);
 Screenshot from URL with dithering (recommended for full-color or image-heavy pages):
 
 ```php
-$image = (new TrmnlPipeline())
+$image = (new EpaperPipeline())
     ->model(Model::OG)
     ->pipe((new BrowserStage())->url('https://example.com'))
     ->pipe((new ImageStage())->dither())
@@ -217,7 +218,7 @@ $image = (new TrmnlPipeline())
 
 ### ImageStage
 
-Processes images for e-ink display compatibility.
+Processes images for e-paper display compatibility.
 
 ```php
 $imageStage = new ImageStage();
@@ -240,7 +241,7 @@ $result = $imageStage('/path/to/input.png');
 Recommended for photos but not for images containing mostly text, where it can make edges and letters appear rough or unclear. Dithering converts a grayscale photo into only black and white pixels by using patterns or noise to simulate intermediate shades, creating the illusion of continuous tones through spatial averaging.
 
 ```php
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 
 (new ImageStage())
     ->dither()
@@ -255,15 +256,15 @@ The pipeline supports color images via palettes defined in `palettes.json`. Mode
 **Example 1: Using Model Preset with Color Palette**
 
 ```php
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 
 $html = file_get_contents('./tests/assets/color_6a_test.html');
 
 // Inky Impression 13.3 model has color-6a palette (6 colors: red, green, blue, yellow, black, white)
-$image = new TrmnlPipeline()
+$image = new EpaperPipeline()
     ->model(Model::INKY_IMPRESSION_13_3)
     ->pipe(new BrowserStage()
         ->html($html))
@@ -276,7 +277,7 @@ echo "Generated color image: $image";
 **Example 2: Defining Color Palette as Array**
 
 ```php
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 
 // Define custom color palette (6 colors)
 $colorPalette = [

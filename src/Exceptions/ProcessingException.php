@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline\Exceptions;
+namespace Bnussbau\EpaperPipeline\Exceptions;
 
 use Exception;
 

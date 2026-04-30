@@ -78,7 +78,7 @@ All notable changes to `trmnl-pipeline-php` will be documented in this file.
 
 ### What's Changed
 
-* test: add TrmnlPipeline::fake() for easier testing by @bnussbau in https://github.com/bnussbau/trmnl-pipeline-php/pull/3
+* test: add EpaperPipeline::fake() for easier testing by @bnussbau in https://github.com/bnussbau/trmnl-pipeline-php/pull/3
   * https://github.com/bnussbau/trmnl-pipeline-php?tab=readme-ov-file#testing-with-fake-mode
   
 

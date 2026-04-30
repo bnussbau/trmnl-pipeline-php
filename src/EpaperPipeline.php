@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline;
+namespace Bnussbau\EpaperPipeline;
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 use League\Pipeline\Pipeline;
 
 /**
- * Main pipeline class for e-ink image processing
+ * Main pipeline class for e-paper image processing
  */
-class TrmnlPipeline
+class EpaperPipeline
 {
     private ?Model $model = null;
 

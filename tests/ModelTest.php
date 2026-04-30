@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Data\ModelData;
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
+use Bnussbau\EpaperPipeline\Data\ModelData;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
 
 describe('Model', function (): void {
     it('can get model data for OG PNG', function (): void {
@@ -60,7 +60,7 @@ describe('Model', function (): void {
     });
 
     it('throws exception for invalid model name', function (): void {
-        expect(fn (): \Bnussbau\TrmnlPipeline\Data\ModelData => ModelData::getByName('invalid_model'))
+        expect(fn (): \Bnussbau\EpaperPipeline\Data\ModelData => ModelData::getByName('invalid_model'))
             ->toThrow(ProcessingException::class, "Model 'invalid_model' not found in models data");
     });
 });

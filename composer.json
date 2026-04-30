@@ -1,13 +1,13 @@
 {
-  "name": "bnussbau/trmnl-pipeline-php",
-  "description": "Convert HTML content into optimized images for a range of e-ink devices.",
+  "name": "bnussbau/epaper-pipeline-php",
+  "description": "Convert HTML content into optimized images for a range of e-paper devices.",
   "keywords": [
     "bnussbau",
-    "trmnl-pipeline-php",
-    "trmnl",
-    "e-ink"
+    "epaper-pipeline-php",
+    "epaper",
+    "e-paper"
   ],
-  "homepage": "https://github.com/bnussbau/trmnl-pipeline-php",
+  "homepage": "https://github.com/bnussbau/epaper-pipeline-php",
   "license": "MIT",
   "authors": [
     {
@@ -30,12 +30,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Bnussbau\\TrmnlPipeline\\": "src"
+      "Bnussbau\\EpaperPipeline\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Bnussbau\\TrmnlPipeline\\Tests\\": "tests"
+      "Bnussbau\\EpaperPipeline\\Tests\\": "tests"
     }
   },
   "scripts": {

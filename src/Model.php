@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline;
+namespace Bnussbau\EpaperPipeline;
 
-use Bnussbau\TrmnlPipeline\Data\ModelData;
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Data\ModelData;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 
 enum Model: string
 {

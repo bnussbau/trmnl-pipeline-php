@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline\Stages;
+namespace Bnussbau\EpaperPipeline\Stages;
 
-use Bnussbau\TrmnlPipeline\Data\PaletteData;
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\StageInterface;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\EpaperPipeline\Data\PaletteData;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\StageInterface;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Imagick;
 use ImagickDraw;
 use ImagickDrawException;
@@ -278,7 +278,7 @@ class ImageStage implements StageInterface
             throw new ProcessingException('Invalid or missing image file: '.$imagePath);
         }
 
-        if (TrmnlPipeline::isFake()) {
+        if (EpaperPipeline::isFake()) {
             return $this->createMockProcessedImage($imagePath);
         }
 

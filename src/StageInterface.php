@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline;
+namespace Bnussbau\EpaperPipeline;
 
 /**
  * Interface for pipeline stages

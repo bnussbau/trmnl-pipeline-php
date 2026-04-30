@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
 
 describe('ImageStage', function (): void {
     beforeEach(function (): void {

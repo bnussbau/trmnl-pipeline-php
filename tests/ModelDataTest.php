@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Data\ModelData;
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Data\ModelData;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 
 describe('ModelData', function (): void {
     it('can load models from JSON', function (): void {

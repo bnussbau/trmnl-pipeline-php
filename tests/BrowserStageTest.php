@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
 use Spatie\Browsershot\Browsershot;
 
 describe('BrowserStage', function (): void {

@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Data\PaletteData;
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Data\PaletteData;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 
 describe('PaletteData', function (): void {
     it('can load palettes from JSON', function (): void {

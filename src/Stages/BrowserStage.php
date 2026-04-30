@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline\Stages;
+namespace Bnussbau\EpaperPipeline\Stages;
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\StageInterface;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\StageInterface;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 use Spatie\Browsershot\Browsershot;
 
 /**
@@ -159,7 +159,7 @@ class BrowserStage implements StageInterface
             throw new ProcessingException('No HTML content or URL provided for browser rendering. Use html() or url() method to set content or URL.');
         }
 
-        if (TrmnlPipeline::isFake()) {
+        if (EpaperPipeline::isFake()) {
             return $this->createMockImage();
         }
 

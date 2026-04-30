@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
-use Bnussbau\TrmnlPipeline\Model;
-use Bnussbau\TrmnlPipeline\StageInterface;
-use Bnussbau\TrmnlPipeline\Stages\BrowserStage;
-use Bnussbau\TrmnlPipeline\Stages\ImageStage;
-use Bnussbau\TrmnlPipeline\TrmnlPipeline;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Model;
+use Bnussbau\EpaperPipeline\StageInterface;
+use Bnussbau\EpaperPipeline\Stages\BrowserStage;
+use Bnussbau\EpaperPipeline\Stages\ImageStage;
+use Bnussbau\EpaperPipeline\EpaperPipeline;
 
 describe('Pipeline', function (): void {
     it('can be instantiated', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
 
-        expect($pipeline)->toBeInstanceOf(TrmnlPipeline::class);
+        expect($pipeline)->toBeInstanceOf(EpaperPipeline::class);
         expect($pipeline->getModel())->toBeNull();
     });
 
     it('can set and get model', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $model = Model::OG_PNG;
 
         $pipeline->model($model);
@@ -27,7 +27,7 @@ describe('Pipeline', function (): void {
     });
 
     it('can chain model setting', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $model = Model::OG_PNG;
 
         $result = $pipeline->model($model);
@@ -36,7 +36,7 @@ describe('Pipeline', function (): void {
     });
 
     it('can add stages to pipeline', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $stage = new class implements StageInterface
         {
             public function __invoke(mixed $payload): mixed
@@ -51,7 +51,7 @@ describe('Pipeline', function (): void {
     });
 
     it('can process payload through pipeline', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $stage = new class implements StageInterface
         {
             public function __invoke(mixed $payload): mixed
@@ -68,7 +68,7 @@ describe('Pipeline', function (): void {
     });
 
     it('can process payload through multiple stages', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
 
         $stage1 = new class implements StageInterface
         {
@@ -94,7 +94,7 @@ describe('Pipeline', function (): void {
     });
 
     it('throws ProcessingException when stage fails', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $stage = new class implements StageInterface
         {
             public function __invoke(mixed $payload): mixed
@@ -110,7 +110,7 @@ describe('Pipeline', function (): void {
     });
 
     it('can chain pipe calls', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $stage1 = new class implements StageInterface
         {
             public function __invoke(mixed $payload): mixed
@@ -132,7 +132,7 @@ describe('Pipeline', function (): void {
     });
 
     it('automatically configures stages with model when model is set', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $model = Model::OG_BMP;
         $imageStage = new ImageStage;
 
@@ -145,7 +145,7 @@ describe('Pipeline', function (): void {
     });
 
     it('does not configure stages when no model is set', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $imageStage = new ImageStage;
 
         // Add stage without setting model
@@ -156,7 +156,7 @@ describe('Pipeline', function (): void {
     });
 
     it('processes color palette end-to-end with inky_impression_13_3 model', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $model = Model::INKY_IMPRESSION_13_3; // Has color-6a palette
 
         // Verify model has color palette
@@ -193,7 +193,7 @@ describe('Pipeline', function (): void {
     });
 
     it('processes color palette end-to-end with seed_e1002 model', function (): void {
-        $pipeline = new TrmnlPipeline;
+        $pipeline = new EpaperPipeline;
         $model = Model::SEEED_E1002; // Has color-spectra6 palette
 
         // Verify model has color palette

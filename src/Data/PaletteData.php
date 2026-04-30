@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Bnussbau\TrmnlPipeline\Data;
+namespace Bnussbau\EpaperPipeline\Data;
 
-use Bnussbau\TrmnlPipeline\Exceptions\ProcessingException;
+use Bnussbau\EpaperPipeline\Exceptions\ProcessingException;
 
 /**
  * Palette data structure loaded from palettes.json
