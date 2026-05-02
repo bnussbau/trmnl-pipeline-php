@@ -18,7 +18,7 @@ Command line wrapper for this package: [epaper-pipeline-cmd](https://github.com/
 
 - **Browser Rendering**: HTML to image conversion using Spatie Browsershot
 - **Image Processing**: Advanced image manipulation using ImageMagick
-- **TRMNL Models API**: Automatic support for >=12 different e-paper device models.
+- **TRMNL Models API**: Automatic support for >=18 different e-paper device models (TRMNL, Seeed Studio, Kobo, Kindle, Nook, …).
 
 ## Requirements
 
